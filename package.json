@@ -1,7 +1,7 @@
 {
     "name": "brackets-openedfiles",
-    "title": "Openedfiles",
-    "description": "utilities on working files",
+    "title": "OpenedFiles",
+    "description": "close all opened files on project change",
     "homepage": "https://github.com/kaala/brackets-openedfiles",
     "version": "1.1.1",
     "author": "kaala (https://github.com/kaala)",
@@ -9,6 +9,7 @@
     "categories": "project",
     "keywords": [
         "project",
+        "preferences",
         "file",
         "document"
     ],
