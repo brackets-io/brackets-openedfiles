@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     "use strict";
 
     var COMMAND_ID = "workingfiles.openfolder",
-        STATE_NAME = "mainView.state";
+        VIEWSTATE_ID = "mainView.state";
 
     var CommandManager = brackets.getModule("command/CommandManager"),
         DocumentManager = brackets.getModule("document/DocumentManager"),
@@ -40,9 +40,9 @@ define(function(require, exports, module) {
                 layerID: projectRoot.fullPath
             }
         };
-        var state = PreferencesManager.getViewState(STATE_NAME, context);
+        var state = PreferencesManager.getViewState(VIEWSTATE_ID, context);
         state.panes = {};
-        PreferencesManager.setViewState(STATE_NAME, state, context);
+        PreferencesManager.setViewState(VIEWSTATE_ID, state, context);
     }
 
     $(ProjectManager).on("projectClose", closeAllOpenedDocuments);
