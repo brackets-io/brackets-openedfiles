@@ -46,5 +46,6 @@ define(function(require, exports, module) {
     }
 
     $(ProjectManager).on("projectClose", closeAllOpenedDocuments);
+    $(ProjectManager).on("beforeAppClose", closeAllOpenedDocuments);
 
 });
