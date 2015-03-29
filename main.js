@@ -1,13 +1,13 @@
 define(function(require, exports, module) {
     "use strict";
 
-    var COMMAND_ID = "workingfiles.openfolder",
-        VIEWSTATE_ID = "mainView.state";
+    var COMMAND_ID = "workingfiles.openfolder";
 
     var CommandManager = brackets.getModule("command/CommandManager"),
         DocumentManager = brackets.getModule("document/DocumentManager"),
         ProjectManager = brackets.getModule("project/ProjectManager"),
         PreferencesManager = brackets.getModule("preferences/PreferencesManager"),
+        AppInit = brackets.getModule("utils/AppInit"),
         Menus = brackets.getModule("command/Menus"),
         FileUtils = brackets.getModule("file/FileUtils");
 
@@ -31,21 +31,19 @@ define(function(require, exports, module) {
         "platform": "mac"
     }]);
 
-    function closeAllOpenedDocuments() {
-        var projectRoot = ProjectManager.getProjectRoot();
-        var context = {
-            location: {
-                scope: "user",
-                layer: "project",
-                layerID: projectRoot.fullPath
+    function removeViewState() {
+        var VIEWSTATE_ID = "mainView.state",
+            _getViewState = PreferencesManager.getViewState;
+
+        PreferencesManager.getViewState = function(id, context) {
+            var state = _getViewState(id, context);
+            if (id === VIEWSTATE_ID) {
+                state.panes = {};
             }
+            return state;
         };
-        var state = PreferencesManager.getViewState(VIEWSTATE_ID, context);
-        state.panes = {};
-        PreferencesManager.setViewState(VIEWSTATE_ID, state, context);
     }
 
-    $(ProjectManager).on("projectClose", closeAllOpenedDocuments);
-    $(ProjectManager).on("beforeAppClose", closeAllOpenedDocuments);
+    AppInit.extensionsLoaded(removeViewState);
 
 });
